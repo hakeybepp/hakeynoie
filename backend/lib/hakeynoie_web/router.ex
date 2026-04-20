@@ -21,7 +21,7 @@ defmodule HakeynoieWeb.Router do
 
   scope "/api" do
     pipe_through [:api, :invite_check]
-    auth_routes HakeynoieWeb.AuthController, Hakeynoie.Accounts.User
+    auth_routes(HakeynoieWeb.AuthController, Hakeynoie.Accounts.User)
   end
 
   # Public: availability calendar

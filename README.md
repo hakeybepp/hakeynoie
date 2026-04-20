@@ -10,12 +10,46 @@ A booking management app built with Elixir/Phoenix (API) and React/TypeScript.
 
 ## Local Development
 
+### Prerequisites (Ubuntu/WSL)
+
+#### 1. Erlang & Elixir
+
+```bash
+wget -qO - https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | sudo apt-key add -
+echo "deb https://packages.erlang-solutions.com/ubuntu jammy contrib" | sudo tee /etc/apt/sources.list.d/erlang-solutions.list
+sudo apt-get update
+sudo apt-get install -y esl-erlang elixir
+```
+
+Verify: `elixir --version` should show 1.16+.
+
+#### 2. PostgreSQL 16
+
+```bash
+sudo apt-get install -y postgresql-common
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+sudo apt-get install -y postgresql-16
+sudo service postgresql start
+```
+
+Create the dev database user (matches `config/dev.exs`):
+
+```bash
+sudo -u postgres psql -c "CREATE USER hakeynoie WITH PASSWORD 'hakeynoie_password' CREATEDB;"
+```
+
+PostgreSQL needs to be running whenever you develop locally. On WSL it doesn't start automatically — add this to your shell profile or run it each session:
+
+```bash
+sudo service postgresql start
+```
+
 ### Backend
 
 ```bash
 cd backend
-mix deps.get        # install dependencies
-mix ecto.setup      # create DB + run migrations
+mix local.hex --force && mix local.rebar --force   # first time only
+mix setup           # deps + create DB + migrations
 mix phx.server      # start API on port 4000
 ```
 
@@ -24,7 +58,7 @@ mix phx.server      # start API on port 4000
 ```bash
 cd frontend
 npm install
-npm run dev         # start dev server
+npm run dev         # start dev server on port 5173
 ```
 
 ### Docker

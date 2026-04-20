@@ -12,8 +12,9 @@ config :hakeynoie, HakeynoieWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "test_secret_key_base_placeholder_at_least_64_chars_xxxxxxxxxxxxxxxxxxxxxxxx"
 
-config :hakeynoie, :token_signing_secret,
-  "test_token_signing_secret_at_least_32_chars_xxxxxxxxxxxxxxxx"
+config :hakeynoie,
+       :token_signing_secret,
+       "test_token_signing_secret_at_least_32_chars_xxxxxxxxxxxxxxxx"
 
 config :hakeynoie, Hakeynoie.Mailer, adapter: Swoosh.Adapters.Test
 

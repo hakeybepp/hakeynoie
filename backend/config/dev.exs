@@ -15,8 +15,9 @@ config :hakeynoie, HakeynoieWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "dev_secret_key_base_placeholder_at_least_64_chars_xxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-config :hakeynoie, :token_signing_secret,
-  "dev_token_signing_secret_at_least_32_chars_xxxxxxxxxxxxxxxx"
+config :hakeynoie,
+       :token_signing_secret,
+       "dev_token_signing_secret_at_least_32_chars_xxxxxxxxxxxxxxxx"
 
 config :logger, :console, format: "[$level] $message\n"
 

@@ -44,6 +44,8 @@ cd backend && mix format          # auto-format
 cd backend && mix format --check  # verify formatting (used in CI)
 ```
 
+**Before every commit**, run `cd backend && mix format` to ensure all Elixir code is properly formatted. Do not commit unformatted code.
+
 ## Style Guidelines
 
 ### Elixir/Phoenix

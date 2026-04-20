@@ -24,11 +24,19 @@ defmodule HakeynoieWeb.UserController do
     case Ash.get(User, id, actor: actor, domain: Accounts) do
       {:ok, user} ->
         user
-        |> Ash.Changeset.for_update(:reset_password, %{password: password}, actor: actor, domain: Accounts)
+        |> Ash.Changeset.for_update(:reset_password, %{password: password},
+          actor: actor,
+          domain: Accounts
+        )
         |> Ash.update()
         |> case do
-          {:ok, _} -> send_resp(conn, :no_content, "")
-          {:error, _} -> conn |> put_status(:internal_server_error) |> json(%{detail: "Failed to reset password"})
+          {:ok, _} ->
+            send_resp(conn, :no_content, "")
+
+          {:error, _} ->
+            conn
+            |> put_status(:internal_server_error)
+            |> json(%{detail: "Failed to reset password"})
         end
 
       {:error, _} ->
@@ -45,8 +53,11 @@ defmodule HakeynoieWeb.UserController do
         |> Ash.Changeset.for_update(:soft_delete, %{}, actor: actor, domain: Accounts)
         |> Ash.update()
         |> case do
-          {:ok, _} -> send_resp(conn, :no_content, "")
-          {:error, _} -> conn |> put_status(:internal_server_error) |> json(%{detail: "Failed to delete user"})
+          {:ok, _} ->
+            send_resp(conn, :no_content, "")
+
+          {:error, _} ->
+            conn |> put_status(:internal_server_error) |> json(%{detail: "Failed to delete user"})
         end
 
       {:error, _} ->
@@ -61,14 +72,15 @@ defmodule HakeynoieWeb.UserController do
       full_name: user.full_name,
       is_admin: user.is_admin,
       created_at: user.created_at,
-      bookings: Enum.map(user.bookings, fn b ->
-        %{
-          id: b.id,
-          check_in: Date.to_iso8601(b.check_in),
-          check_out: Date.to_iso8601(b.check_out),
-          notes: b.notes
-        }
-      end)
+      bookings:
+        Enum.map(user.bookings, fn b ->
+          %{
+            id: b.id,
+            check_in: Date.to_iso8601(b.check_in),
+            check_out: Date.to_iso8601(b.check_out),
+            notes: b.notes
+          }
+        end)
     }
   end
 end

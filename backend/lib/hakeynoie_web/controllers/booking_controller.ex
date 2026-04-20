@@ -37,16 +37,19 @@ defmodule HakeynoieWeb.BookingController do
 
     case result do
       {:ok, bookings} ->
-        json(conn, Enum.map(bookings, fn b ->
-          %{
-            id: b.id,
-            check_in: Date.to_iso8601(b.check_in),
-            check_out: Date.to_iso8601(b.check_out),
-            guest_name: b.guest_name,
-            user_id: b.user_id,
-            notes: b.notes
-          }
-        end))
+        json(
+          conn,
+          Enum.map(bookings, fn b ->
+            %{
+              id: b.id,
+              check_in: Date.to_iso8601(b.check_in),
+              check_out: Date.to_iso8601(b.check_out),
+              guest_name: b.guest_name,
+              user_id: b.user_id,
+              notes: b.notes
+            }
+          end)
+        )
 
       {:error, _} ->
         conn
@@ -303,8 +306,12 @@ defmodule HakeynoieWeb.BookingController do
       {:ok, email} ->
         Task.start(fn ->
           case Hakeynoie.Mailer.deliver(email) do
-            {:ok, _} -> :ok
-            {:error, reason} -> require Logger; Logger.warning("Failed to send booking notification: #{inspect(reason)}")
+            {:ok, _} ->
+              :ok
+
+            {:error, reason} ->
+              require Logger
+              Logger.warning("Failed to send booking notification: #{inspect(reason)}")
           end
         end)
 

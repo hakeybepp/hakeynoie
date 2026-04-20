@@ -63,7 +63,12 @@ defmodule HakeynoieWeb.BookingControllerTest do
       user2 = create_user(%{email: "user2@example.com"})
 
       _booking1 = create_booking(user1)
-      _booking2 = create_booking(user2, %{check_in: Date.add(Date.utc_today(), 20), check_out: Date.add(Date.utc_today(), 25)})
+
+      _booking2 =
+        create_booking(user2, %{
+          check_in: Date.add(Date.utc_today(), 20),
+          check_out: Date.add(Date.utc_today(), 25)
+        })
 
       auth_conn = login_conn(conn, user1.email |> to_string(), default_password())
 
@@ -81,7 +86,12 @@ defmodule HakeynoieWeb.BookingControllerTest do
       user = create_user(%{email: "regularuser@example.com"})
 
       _booking1 = create_booking(admin)
-      _booking2 = create_booking(user, %{check_in: Date.add(Date.utc_today(), 20), check_out: Date.add(Date.utc_today(), 25)})
+
+      _booking2 =
+        create_booking(user, %{
+          check_in: Date.add(Date.utc_today(), 20),
+          check_out: Date.add(Date.utc_today(), 25)
+        })
 
       auth_conn = login_conn(conn, "admin@example.com", default_password())
 
@@ -136,10 +146,11 @@ defmodule HakeynoieWeb.BookingControllerTest do
       today = Date.utc_today()
 
       # Create a booking for days 40-50
-      _existing = create_booking(user, %{
-        check_in: Date.add(today, 40),
-        check_out: Date.add(today, 50)
-      })
+      _existing =
+        create_booking(user, %{
+          check_in: Date.add(today, 40),
+          check_out: Date.add(today, 50)
+        })
 
       auth_conn = login_conn(conn, "overlap@example.com", default_password())
 

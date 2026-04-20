@@ -42,9 +42,10 @@ if config_env() in [:prod, :dev] do
       tls: :always,
       auth: :always
 
-    config :hakeynoie, :from_email,
-      System.get_env("FROM_EMAIL") || System.get_env("SMTP_USERNAME") ||
-        raise("FROM_EMAIL or SMTP_USERNAME must be set when SMTP_HOST is configured")
+    config :hakeynoie,
+           :from_email,
+           System.get_env("FROM_EMAIL") || System.get_env("SMTP_USERNAME") ||
+             raise("FROM_EMAIL or SMTP_USERNAME must be set when SMTP_HOST is configured")
   end
 
   if admin_email = System.get_env("ADMIN_EMAIL") do

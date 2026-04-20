@@ -1,5 +1,5 @@
 # Stage 1: Build frontend
-FROM node:22-alpine AS frontend-builder
+FROM node:24-alpine AS frontend-builder
 WORKDIR /frontend
 COPY frontend/package*.json ./
 RUN npm ci
@@ -31,10 +31,10 @@ RUN apk add --no-cache libstdc++ openssl ncurses-libs
 WORKDIR /app
 RUN chown nobody /app
 
-COPY --from=backend-builder --chown=nobody:root /app/_build/prod/rel/sacamer ./
+COPY --from=backend-builder --chown=nobody:root /app/_build/prod/rel/hakeynoie ./
 
 USER nobody
 
 ENV MIX_ENV=prod PHX_SERVER=true
 
-CMD ["/app/bin/sacamer", "start"]
+CMD ["/app/bin/hakeynoie", "start"]

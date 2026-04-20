@@ -52,6 +52,13 @@ jobs:
         working-directory: backend
         run: mix format --check-formatted
 
+      - name: Set up database
+        working-directory: backend
+        run: mix ecto.create && mix ecto.migrate
+        env:
+          MIX_ENV: test
+          DB_HOSTNAME: localhost
+
       - name: Run tests
         working-directory: backend
         run: mix test
