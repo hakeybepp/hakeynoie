@@ -1,0 +1,29 @@
+# Elixir / Phoenix
+_build/
+deps/
+.elixir_ls/
+*.ez
+erl_crash.dump
+/backend/priv/static/assets/
+
+# Environment
+.env.local
+.env
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# Docker
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
